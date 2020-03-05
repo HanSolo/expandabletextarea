@@ -1,0 +1,119 @@
+/*
+ * Copyright (c) 2020 by Gerrit Grunwald
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.expandable-text-area .text-area-pane .text-area {
+    -fx-background-color: transparent;
+}
+.expandable-text-area .text-area-pane .text-area > .content {
+    -fx-background-color : linear-gradient(from 0px 0px to 0px 4px, derive(-fx-control-inner-background, -8%), -fx-control-inner-background);
+    -fx-background-radius: 0;
+}
+.expandable-text-area .text-area-pane .text-area:focused .content {
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color      : transparent;
+    -fx-background-insets: 0;
+    -fx-background-color : linear-gradient(from 0px 0px to 0px 4px, derive(-fx-control-inner-background, -8%), -fx-control-inner-background);
+    -fx-background-radius: 0;
+}
+.expandable-text-area .text-area-pane .text-area {
+    -fx-effect           : null;
+    -fx-background-insets: 0;
+    -fx-border-width     : 0;
+    -fx-border-insets    : 0;
+    -fx-border-style     : none;
+    -fx-border-color     : transparent;
+}
+.expandable-text-area .text-area-pane .text-area > .scroll-pane > .corner {
+    -fx-background-radius: 0;
+}
+.expandable-text-area .text-area-pane .text-area > .scroll-pane > .scroll-bar,
+.expandable-text-area .text-area-pane .text-area > .scroll-pane > .scroll-bar {
+    visibility           : hidden;
+    -fx-background-color : transparent;
+    -fx-border-color     : transparent;
+    -fx-background-radius: 0;
+    -fx-border-radius    : 0;
+}
+.expandable-text-area .text-area-pane .text-area > .scroll-pane > .scroll-bar:horizontal > .track-background,
+.expandable-text-area .text-area-pane .text-area > .scroll-pane > .scroll-bar:vertical > .track-background {
+    visibility           : hidden;
+    -fx-background-insets: 0;
+    -fx-background-color : transparent;
+    -fx-border-color     : transparent;
+    -fx-border-style     : none;
+    -fx-border-width     : 0;
+}
+.expandable-text-area .text-area-pane .text-area > .scroll-pane > .scroll-bar:horizontal .track {
+    visibility           : hidden;
+    -fx-pref-height      : 0;
+    -fx-background-color : transparent;
+    -fx-border-color     : transparent;
+    -fx-background-radius: 0;
+    -fx-border-radius    : 0;
+}
+.expandable-text-area .text-area-pane .text-area > .scroll-pane > .scroll-bar:vertical .track {
+    visibility           : hidden;
+    -fx-pref-width       : 0;
+    -fx-background-color : transparent;
+    -fx-border-color     : transparent;
+    -fx-background-radius: 0;
+    -fx-border-radius    : 0;
+}
+.expandable-text-area .text-area-pane .text-area > .scroll-pane > .scroll-bar:horizontal .increment-button,
+.expandable-text-area .text-area-pane .text-area > .scroll-pane > .scroll-bar:horizontal .decrement-button {
+    visibility           : hidden;
+    -fx-background-color : transparent;
+    -fx-background-radius: 0;
+    -fx-padding          : 0;
+}
+.expandable-text-area .text-area-pane .text-area > .scroll-pane > .scroll-bar:vertical .increment-button,
+.expandable-text-area .text-area-pane .text-area > .scroll-pane > .scroll-bar:vertical .decrement-button {
+    visibility           : hidden;
+    -fx-background-color : transparent;
+    -fx-background-radius: 0;
+    -fx-padding          : 0;
+}
+.expandable-text-area .text-area-pane .text-area > .scroll-pane > .scroll-bar .increment-arrow,
+.expandable-text-area .text-area-pane .text-area > .scroll-pane > .scroll-bar .decrement-arrow {
+    -fx-shape  : " ";
+    -fx-padding: 0;
+}
+.expandable-text-area .text-area-pane .text-area > .scroll-pane > .scroll-bar:horizontal .thumb,
+.expandable-text-area .text-area-pane .text-area > .scroll-pane > .scroll-bar:vertical .thumb {
+    visibility           : hidden;
+    -fx-background-color : transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.expandable-text-area .text-area-pane .label-pane {
+    -fx-padding: 4 7 7 7;
+}
+
+.expandable-text-area .text-area-pane .label {
+    -fx-background-insets: -4 -10 -5 -10;
+    -fx-label-padding    : 0;
+    -fx-background-color : linear-gradient(from 0px -4px to 0px 0px, derive(-fx-control-inner-background, -8%), -fx-control-inner-background);
+    -fx-background-radius: 0;
+    -fx-translate-x      : 2;
+    -fx-translate-y      : 1;
+}
+
+.expandable-text-area > .limitation-label {
+    -fx-alignment       : CENTER_RIGHT;
+    -fx-font-size       : 0.833333em;
+    -fx-background-color: transparent;
+}
