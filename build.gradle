@@ -43,11 +43,16 @@ dependencies {
     compile "org.openjfx:javafx-controls:11:$platform"
 }
 
-mainClassName = 'eu.hansolo.fx.expandabletextarea.Demo'
+mainClassName = 'eu.hansolo.fx.expandabletextarea.Demo2'
 
 // start the demo from gradle
 task Demo(type: JavaExec) {
     main = "eu.hansolo.fx.Launcher"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task Demo2(type: JavaExec) {
+    main = "eu.hansolo.fx.Launcher2"
     classpath = sourceSets.main.runtimeClasspath
 }
 

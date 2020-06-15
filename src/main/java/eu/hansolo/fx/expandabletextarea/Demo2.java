@@ -19,23 +19,18 @@ package eu.hansolo.fx.expandabletextarea;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
 
 
-/**
- * User: hansolo
- * Date: 2019-06-21
- * Time: 09:36
- */
-public class Demo extends Application {
+public class Demo2 extends Application {
     private Label               header;
-    private ExpandableTextArea  expandableTextArea;
+    private ExpandableTextArea2 expandableTextArea;
     private ToggleButton        toggleButton;
     private Button              exitButton;
     private HBox                buttonBox;
@@ -44,7 +39,7 @@ public class Demo extends Application {
     @Override public void init() {
         final String text = "";
         header             = new Label("Header");
-        expandableTextArea = new ExpandableTextArea(text, true, 3, 300, 50);
+        expandableTextArea = new ExpandableTextArea2(text, true, true, 3, 300);
         toggleButton       = new ToggleButton("Not Expanded");
         exitButton         = new Button("Exit");
         buttonBox          = new HBox(5, toggleButton, exitButton);
@@ -69,7 +64,7 @@ public class Demo extends Application {
 
         Scene scene = new Scene(pane, 400, 300);
 
-        stage.setTitle("ExpandableTextArea");
+        stage.setTitle("ExpandableTextArea2");
         stage.setScene(scene);
         stage.show();
 
