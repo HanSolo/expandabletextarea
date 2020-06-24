@@ -16,8 +16,7 @@ buildscript {
 }
 
 plugins {
-    id 'java'
-    id 'application'
+    id 'java-library'
     id 'com.google.osdetector' version '1.6.2'
     id 'org.javamodularity.moduleplugin' version '1.6.0'
     id 'org.beryx.jlink' version '2.17.2'
@@ -47,12 +46,12 @@ mainClassName = 'eu.hansolo.fx.expandabletextarea.Demo2'
 
 // start the demo from gradle
 task Demo(type: JavaExec) {
-    main = "eu.hansolo.fx.Launcher"
+    main = "eu.hansolo.fx.expandabletextarea.Launcher"
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task Demo2(type: JavaExec) {
-    main = "eu.hansolo.fx.Launcher2"
+    main = "eu.hansolo.fx.expandabletextarea.Launcher2"
     classpath = sourceSets.main.runtimeClasspath
 }
 

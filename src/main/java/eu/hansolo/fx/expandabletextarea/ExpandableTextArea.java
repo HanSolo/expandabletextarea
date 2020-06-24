@@ -93,21 +93,23 @@ public class ExpandableTextArea extends VBox {
         this.characterThreshold = characterThreshold;
         this.lineHeight         = 17;
         this.fixedHeight        = new BooleanPropertyBase(fixedHeight) {
-            @Override protected void invalidated() { updateHeight(textArea.getText()); }
+            @Override protected void invalidated() { if (get()) { updateHeight(textArea.getText()); } }
             @Override public Object getBean() { return ExpandableTextArea.this; }
             @Override public String getName() { return "fixedHeight"; }
         };
         this.expandable         = new BooleanPropertyBase(expandable) {
             @Override protected void invalidated() {
-                updateHeight(textArea.getText());
-                if (get()) {
-                    setToExpandedHeight();
-                    enableNode(textArea, true);
-                    enableNode(limitationLabel, textArea.getText().length() >= (maxNoOfCharacters - characterThreshold - 1));
-                } else {
-                    setToFixedHeight();
-                    enableNode(textArea, false);
-                    enableNode(limitationLabel, false);
+                if (isFixedHeight()) {
+                    updateHeight(textArea.getText());
+                    if (get()) {
+                        setToExpandedHeight();
+                        enableNode(textArea, true);
+                        enableNode(limitationLabel, textArea.getText().length() >= (maxNoOfCharacters - characterThreshold - 1));
+                    } else {
+                        setToFixedHeight();
+                        enableNode(textArea, false);
+                        enableNode(limitationLabel, false);
+                    }
                 }
             }
             @Override public Object getBean() { return ExpandableTextArea.this; }
@@ -138,7 +140,9 @@ public class ExpandableTextArea extends VBox {
         setAlignment(Pos.TOP_LEFT);
 
         textArea = new TextArea(text);
-        textArea.setPrefHeight(getCompactNoOfLines() * lineHeight);
+        if (isFixedHeight()) {
+            textArea.setPrefHeight(getCompactNoOfLines() * lineHeight);
+        }
         textArea.setWrapText(true);
         textArea.setVisible(!isFixedHeight());
 
@@ -242,9 +246,12 @@ public class ExpandableTextArea extends VBox {
 
         showing.addListener(ob -> {
             if (showing.get()) {
-                ScrollPane scrollPane = (ScrollPane)textArea.lookup(".scroll-pane");
-                scrollPane.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
-                scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
+                if (isFixedHeight()) {
+                    if (isExpandable()) { setToExpandedHeight(); } else { setToFixedHeight(); }
+                    ScrollPane scrollPane = (ScrollPane) textArea.lookup(".scroll-pane");
+                    scrollPane.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
+                    scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
+                }
             }
         });
     }

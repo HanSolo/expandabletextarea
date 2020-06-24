@@ -39,7 +39,7 @@ public class Demo2 extends Application {
     @Override public void init() {
         final String text = "";
         header             = new Label("Header");
-        expandableTextArea = new ExpandableTextArea2(text, true, true, 3, 300);
+        expandableTextArea = new ExpandableTextArea2(text, true, false, 3, 300);
         toggleButton       = new ToggleButton("Not Expanded");
         exitButton         = new Button("Exit");
         buttonBox          = new HBox(5, toggleButton, exitButton);

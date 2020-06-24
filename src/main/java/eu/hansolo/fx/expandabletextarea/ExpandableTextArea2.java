@@ -70,19 +70,21 @@ public class ExpandableTextArea2 extends StackPane {
         this.maxNoOfCharacters = clamp(5, Integer.MAX_VALUE, maxNoOfCharacters);
         this.lineHeight        = 17;
         this.fixedHeight       = new BooleanPropertyBase(fixedHeight) {
-            @Override protected void invalidated() { updateHeight(textArea.getText()); }
+            @Override protected void invalidated() { if (get()) { updateHeight(textArea.getText()); } }
             @Override public Object getBean() { return ExpandableTextArea2.this; }
             @Override public String getName() { return "fixedHeight"; }
         };
         this.expandable        = new BooleanPropertyBase(expandable) {
             @Override protected void invalidated() {
-                updateHeight(textArea.getText());
-                if (get()) {
-                    setToExpandedHeight();
-                    enableNode(textArea, true);
-                } else {
-                    setToFixedHeight();
-                    enableNode(textArea, false);
+                if (isFixedHeight()) {
+                    updateHeight(textArea.getText());
+                    if (get()) {
+                        setToExpandedHeight();
+                        enableNode(textArea, true);
+                    } else {
+                        setToFixedHeight();
+                        enableNode(textArea, false);
+                    }
                 }
             }
             @Override public Object getBean() { return ExpandableTextArea2.this; }
@@ -116,9 +118,11 @@ public class ExpandableTextArea2 extends StackPane {
         double expandedHeight  = getExpandedNoOfLines() * lineHeight;
 
         textArea = new TextArea(text);
-        textArea.setMinHeight(lineHeight);
-        textArea.setPrefHeight(compactedHeight);
-        textArea.setMaxHeight(expandedHeight);
+        if (isFixedHeight()) {
+            textArea.setMinHeight(lineHeight);
+            textArea.setPrefHeight(compactedHeight);
+            textArea.setMaxHeight(expandedHeight);
+        }
         textArea.setWrapText(true);
         textArea.setVisible(!isFixedHeight());
 
@@ -139,6 +143,7 @@ public class ExpandableTextArea2 extends StackPane {
         label.setPrefHeight(compactedHeight);
         label.setMaxHeight(expandedHeight);
         label.setWrapText(true);
+        label.setVisible(isFixedHeight());
 
         labelPane = new StackPane(label);
         labelPane.getStyleClass().add("label-pane");
@@ -205,9 +210,12 @@ public class ExpandableTextArea2 extends StackPane {
 
         showing.addListener(ob -> {
             if (showing.get()) {
-                ScrollPane scrollPane = (ScrollPane)textArea.lookup(".scroll-pane");
-                scrollPane.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
-                scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
+                if (isFixedHeight()) {
+                    if (isExpandable()) { setToExpandedHeight(); } else { setToFixedHeight(); }
+                    ScrollPane scrollPane = (ScrollPane) textArea.lookup(".scroll-pane");
+                    scrollPane.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
+                    scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
+                }
             }
         });
     }
@@ -245,7 +253,7 @@ public class ExpandableTextArea2 extends StackPane {
 
     private void updateHeight(final String text) {
         if (null == textAreaSkin) { textAreaSkin = (TextAreaSkin) textArea.getSkin(); }
-        if (isExpandable() && textAreaSkin != null) {
+        if (isExpandable()) {
             int textLength = text.length();
             if (textLength < 1) {
                 expandedNoOfLines.set(1);
